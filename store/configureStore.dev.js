@@ -8,6 +8,7 @@ import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
 const finalCreateStore = compose(
+  applyMiddleware(thunk),
   reduxReactRouter({ routes, createHistory }),
   applyMiddleware(createLogger()),
   DevTools.instrument()

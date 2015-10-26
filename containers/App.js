@@ -19,6 +19,11 @@ class App extends Component {
     e.preventDefault();
   }
 
+  handleShowErrorDelayed(e) {
+    this.props.showErrorMessageDelayed("delayed sample error!!");
+    e.preventDefault();
+  }
+
   renderErrorMessage() {
     const { errorMessage } = this.props;
     if (!errorMessage) {
@@ -41,6 +46,7 @@ class App extends Component {
     return (
       <ul>
         <li><a href="#" onClick={::this.handleShowError}>show error</a></li>
+        <li><a href="#" onClick={::this.handleShowErrorDelayed}>show error (in 1 sec)</a></li>
       </ul>
     );
   }

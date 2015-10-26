@@ -15,3 +15,11 @@ export function showErrorMessage(message) {
     error: message
   }
 }
+
+export function showErrorMessageDelayed(message, delay = 1000) {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(showErrorMessage(message));
+    }, delay);
+  };
+}
