@@ -6,3 +6,12 @@ export function resetErrorMessage() {
     type: RESET_ERROR_MESSAGE
   };
 }
+
+export const SHOW_ERROR_MESSAGE = 'SHOW_ERROR_MESSAGE';
+
+export function showErrorMessage(message) {
+  return {
+    type: SHOW_ERROR_MESSAGE,
+    error: message
+  }
+}

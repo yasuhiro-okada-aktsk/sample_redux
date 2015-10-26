@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { pushState } from 'redux-router';
-import { resetErrorMessage } from '../actions';
+import { resetErrorMessage, showErrorMessage } from '../actions';
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +10,12 @@ class App extends Component {
 
   handleDismissClick(e) {
     this.props.resetErrorMessage();
+    e.preventDefault();
+  }
+
+  handleShowError(e) {
+    console.log("handleShowError");
+    this.props.showErrorMessage("sample error!!");
     e.preventDefault();
   }
 
@@ -31,11 +37,20 @@ class App extends Component {
     );
   }
 
+  renderSample() {
+    return (
+      <ul>
+        <li><a href="#" onClick={::this.handleShowError}>show error</a></li>
+      </ul>
+    );
+  }
+
   render() {
     const { children, inputValue } = this.props;
     return (
       <div>
         {this.renderErrorMessage()}
+        {this.renderSample()}
         {children}
       </div>
     );
@@ -46,6 +61,7 @@ App.propTypes = {
   // Injected by React Redux
   errorMessage: PropTypes.string,
   resetErrorMessage: PropTypes.func.isRequired,
+  showErrorMessage: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired,
   inputValue: PropTypes.string.isRequired,
   // Injected by React Router
@@ -61,5 +77,6 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   resetErrorMessage,
+  showErrorMessage,
   pushState
 })(App);
