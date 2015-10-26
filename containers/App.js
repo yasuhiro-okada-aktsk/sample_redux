@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { pushState } from 'redux-router';
-import { resetErrorMessage, showErrorMessage } from '../actions';
+import * as Actions from '../actions';
 
 class App extends Component {
   constructor(props) {
@@ -14,7 +15,6 @@ class App extends Component {
   }
 
   handleShowError(e) {
-    console.log("handleShowError");
     this.props.showErrorMessage("sample error!!");
     e.preventDefault();
   }
@@ -60,8 +60,6 @@ class App extends Component {
 App.propTypes = {
   // Injected by React Redux
   errorMessage: PropTypes.string,
-  resetErrorMessage: PropTypes.func.isRequired,
-  showErrorMessage: PropTypes.func.isRequired,
   pushState: PropTypes.func.isRequired,
   inputValue: PropTypes.string.isRequired,
   // Injected by React Router
@@ -75,8 +73,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {
-  resetErrorMessage,
-  showErrorMessage,
-  pushState
-})(App);
+function mapDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(Actions, dispatch),
+    pushState
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
