@@ -26,6 +26,22 @@ class App extends Component {
     e.preventDefault();
   }
 
+  handleShowModal(e) {
+    const title = "Sample Modal";
+    const message = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+      aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+    this.props.showModal(title, message);
+    e.preventDefault();
+  }
+
+  handleModalPrimaryButton(e) {
+    this.props.hideModal();
+    e.preventDefault();
+  }
+
   renderErrorMessage() {
     const { errorMessage } = this.props;
     if (!errorMessage) {
@@ -53,14 +69,29 @@ class App extends Component {
     );
   }
 
+  renderModal() {
+    const { messageModal } = this.props;
+
+    return (
+      <div>
+        <button type="button" className="btn btn-primary btn-lg" onClick={::this.handleShowModal}>
+          show modal
+        </button>
+
+        <MessageModal modal={messageModal} onPrimaryButton={::this.handleModalPrimaryButton}/>
+      </div>
+
+    );
+  }
+
   render() {
-    const { children, inputValue, messageModal } = this.props;
+    const { children, inputValue } = this.props;
     return (
       <div>
         {this.renderErrorMessage()}
         {this.renderSample()}
+        {this.renderModal()}
 
-        <MessageModal modal={messageModal} onPrimaryButton={() => {}}/>
         {children}
       </div>
     );

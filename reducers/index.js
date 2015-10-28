@@ -19,11 +19,28 @@ function errorMessage(state = null, action) {
   return state;
 }
 
-function messageModal(state = null, action) {
-  return {
-    visibility: "show",
-    title: "Sample Modal",
-    message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit,"
+const messageModalInitial = {
+  visibility: "hide"
+};
+
+function messageModal(state = messageModalInitial, action) {
+  const { type, title, message } = action;
+
+  switch (type) {
+    case ActionTypes.SHOW_MODAL:
+      return {
+        visibility: "show",
+        title: title,
+        message: message
+      };
+
+    case ActionTypes.HIDE_MODAL:
+      return {
+        visibility: "hide"
+      };
+
+    default:
+      return state;
   }
 }
 
