@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { pushState } from 'redux-router';
 import * as Actions from '../actions';
 
+import MessageModal from "../components/MessageModal.js"
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -52,11 +54,13 @@ class App extends Component {
   }
 
   render() {
-    const { children, inputValue } = this.props;
+    const { children, inputValue, messageModal } = this.props;
     return (
       <div>
         {this.renderErrorMessage()}
         {this.renderSample()}
+
+        <MessageModal modal={messageModal} onPrimaryButton={() => {}}/>
         {children}
       </div>
     );
@@ -68,12 +72,14 @@ App.propTypes = {
   errorMessage: PropTypes.string,
   pushState: PropTypes.func.isRequired,
   inputValue: PropTypes.string.isRequired,
+  messageModal: PropTypes.object.isRequired,
   // Injected by React Router
   children: PropTypes.node
 };
 
 function mapStateToProps(state) {
   return {
+    messageModal: state.messageModal,
     errorMessage: state.errorMessage,
     inputValue: state.router.location.pathname.substring(1)
   };

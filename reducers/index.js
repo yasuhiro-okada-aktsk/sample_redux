@@ -19,7 +19,16 @@ function errorMessage(state = null, action) {
   return state;
 }
 
+function messageModal(state = null, action) {
+  return {
+    visibility: "show",
+    title: "Sample Modal",
+    message: "Lorem ipsum dolor sit amet, consectetur adipisicing elit,"
+  }
+}
+
 const rootReducer = combineReducers({
+  messageModal,
   errorMessage,
   router
 });
