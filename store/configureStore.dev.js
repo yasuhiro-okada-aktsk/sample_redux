@@ -7,10 +7,10 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 
-import { logger } from "../middleware"
+import { logger, api } from "../middleware"
 
 const finalCreateStore = compose(
-  applyMiddleware(logger),
+  applyMiddleware(logger, api),
   applyMiddleware(thunk),
   reduxReactRouter({ routes, createHistory }),
   //applyMiddleware(createLogger()),

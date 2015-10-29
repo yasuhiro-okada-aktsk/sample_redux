@@ -44,8 +44,36 @@ function messageModal(state = messageModalInitial, action) {
   }
 }
 
+const aServiceInitial = {
+  isFetching: false,
+  data: ""
+};
+
+function aService(state = aServiceInitial, action) {
+  const { type, data } = action;
+
+  switch (type) {
+    case ActionTypes.SERVICE_GET_DATA:
+      return Object.assign({},
+        state,
+        {
+          isFetching: true
+        });
+
+    case ActionTypes.SERVICE_SUCCESS:
+      return {
+        isFetching: false,
+        data: data
+      };
+
+    default:
+      return state;
+  }
+}
+
 const rootReducer = combineReducers({
   messageModal,
+  aService,
   errorMessage,
   router
 });

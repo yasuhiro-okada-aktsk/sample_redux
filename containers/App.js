@@ -42,6 +42,11 @@ class App extends Component {
     e.preventDefault();
   }
 
+  handleFetch(e) {
+    this.props.serviceGetData();
+    e.preventDefault();
+  }
+
   renderErrorMessage() {
     const { errorMessage } = this.props;
     if (!errorMessage) {
@@ -84,13 +89,32 @@ class App extends Component {
     );
   }
 
+  renderFetch() {
+    const { aService } = this.props;
+
+    return (
+      <div>
+        <button type="button" className="btn btn-primary btn-lg" onClick={::this.handleFetch}>
+          fetch
+        </button>
+
+        <div>data : {aService.data}</div>
+        <div>{aService.isFetching ? "fetching..." : ("")}</div>
+      </div>
+    );
+  }
+
   render() {
     const { children, inputValue } = this.props;
     return (
       <div>
         {this.renderErrorMessage()}
+        <hr />
         {this.renderSample()}
+        <hr />
         {this.renderModal()}
+        <hr />
+        {this.renderFetch()}
 
         {children}
       </div>
@@ -111,8 +135,9 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     messageModal: state.messageModal,
+    aService: state.aService,
     errorMessage: state.errorMessage,
-    inputValue: state.router.location.pathname.substring(1)
+    inputValue: state.router ? state.router.location.pathname.substring(1) : ""
   };
 }
 
