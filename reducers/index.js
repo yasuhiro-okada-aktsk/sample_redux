@@ -40,27 +40,12 @@ const aServiceInitial = {
   data: ""
 };
 
-function aService(state = aServiceInitial, action) {
-  const { type, data } = action;
-
-  switch (type) {
-    case ActionTypes.SERVICE_GET_DATA:
-      return Object.assign({},
-        state,
-        {
-          isFetching: true
-        });
-
-    case ActionTypes.SERVICE_SUCCESS:
-      return {
-        isFetching: false,
-        data: data
-      };
-
-    default:
-      return state;
-  }
-}
+const aService = handleActions({
+  SERVICE_GET_DATA: (state, action) => ({
+    isFetching: action.meta.api,
+    data: action.payload ? action.payload : state.data
+  })
+}, aServiceInitial);
 
 const rootReducer = combineReducers({
   messageModal,

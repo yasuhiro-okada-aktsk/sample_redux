@@ -29,20 +29,10 @@ export const HIDE_MODAL = "HIDE_MODAL";
 export let showModal = createAction(SHOW_MODAL, (title, message) => ({title: title, message: message}));
 export let hideModal = createAction(HIDE_MODAL);
 
+
+import { createApiMeta } from './api'
+
 export const SERVICE_GET_DATA = "SERVICE_GET_DATA";
-export const SERVICE_SUCCESS = "SERVICE_SUCCESS";
 
-export function serviceGetData(title, message) {
-  return {
-    type: SERVICE_GET_DATA,
-    api: "http://example.com",
-    success: serviceSuccess
-  }
-}
-
-export function serviceSuccess(data) {
-  return {
-    type: SERVICE_SUCCESS,
-    data: data
-  }
-}
+export let serviceGetData = createAction(SERVICE_GET_DATA, empty(),
+  createApiMeta("http://example.com"));
