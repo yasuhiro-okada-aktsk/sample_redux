@@ -1,20 +1,18 @@
+import { createAction } from 'redux-actions'
+
+import { createErrorMeta } from './error'
+
+function empty() {
+  return {}
+}
+
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE';
 
-// Resets the currently visible error message.
-export function resetErrorMessage() {
-  return {
-    type: RESET_ERROR_MESSAGE
-  };
-}
+export let resetErrorMessage = createAction(RESET_ERROR_MESSAGE);
 
 export const SHOW_ERROR_MESSAGE = 'SHOW_ERROR_MESSAGE';
 
-export function showErrorMessage(message) {
-  return {
-    type: SHOW_ERROR_MESSAGE,
-    error: message
-  }
-}
+export let showErrorMessage = createAction(SHOW_ERROR_MESSAGE, empty, createErrorMeta);
 
 export function showErrorMessageDelayed(message, delay = 1000) {
   return dispatch => {
