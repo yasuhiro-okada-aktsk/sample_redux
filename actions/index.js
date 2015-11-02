@@ -26,19 +26,8 @@ export function showErrorMessageDelayed(message, delay = 1000) {
 export const SHOW_MODAL = "SHOW_MODAL";
 export const HIDE_MODAL = "HIDE_MODAL";
 
-export function showModal(title, message) {
-  return {
-    type: SHOW_MODAL,
-    title: title,
-    message: message
-  }
-}
-
-export function hideModal() {
-  return {
-    type: HIDE_MODAL
-  }
-}
+export let showModal = createAction(SHOW_MODAL, (title, message) => ({title: title, message: message}));
+export let hideModal = createAction(HIDE_MODAL);
 
 export const SERVICE_GET_DATA = "SERVICE_GET_DATA";
 export const SERVICE_SUCCESS = "SERVICE_SUCCESS";

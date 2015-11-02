@@ -23,26 +23,17 @@ const messageModalInitial = {
   visibility: "hide"
 };
 
-function messageModal(state = messageModalInitial, action) {
-  const { type, title, message } = action;
+const messageModal = handleActions({
+  SHOW_MODAL: (state, action) => ({
+    visibility: "show",
+    title: action.payload.title,
+    message: action.payload.message
+  }),
 
-  switch (type) {
-    case ActionTypes.SHOW_MODAL:
-      return {
-        visibility: "show",
-        title: title,
-        message: message
-      };
-
-    case ActionTypes.HIDE_MODAL:
-      return {
-        visibility: "hide"
-      };
-
-    default:
-      return state;
-  }
-}
+  HIDE_MODAL: (state, action) => ({
+    visibility: "hide"
+  })
+}, messageModalInitial);
 
 const aServiceInitial = {
   isFetching: false,
