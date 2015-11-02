@@ -10,10 +10,10 @@ import rootReducer from '../reducers';
 import { logger, api } from "../middleware"
 
 const finalCreateStore = compose(
-  applyMiddleware(logger, api),
+  applyMiddleware(api),
   applyMiddleware(thunk),
   reduxReactRouter({ routes, createHistory }),
-  //applyMiddleware(createLogger()),
+  applyMiddleware(createLogger()),
   DevTools.instrument()
 )(createStore);
 
